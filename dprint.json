@@ -1,0 +1,23 @@
+{
+  "includes": ["src/**/*.js", "pages/**/*.js", "cypress/**/*.js", "tests/**/*.js"],
+  "excludes": [
+    "src/temp-templates/**/*.js"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/prettier-0.7.0.json@4e846f43b32981258cef5095b3d732522947592e090ef52333801f9d6e8adb33"
+  ],
+  "prettier": {
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "printWidth": 100,
+    "proseWrap": "always",
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false,
+    "bracketSameLine": true
+  }
+}

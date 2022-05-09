@@ -1,0 +1,35 @@
+name: Tests
+
+on: [pull_request]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Setup MongoDB
+        run: |
+          docker run -d --network host --name some-mongo -e MONGO_INITDB_DATABASE=relay mongo
+
+      - name: Install
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Format check
+        run: yarn format-check
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Unit test
+        run: yarn test
+
+      - name: E2E test
+        run: yarn start:e2e

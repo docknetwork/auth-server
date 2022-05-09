@@ -1,0 +1,32 @@
+{
+  "plugins": ["jest"],
+  "globals": {
+    "process": "readonly"
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["next", "eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended", "airbnb-base"],
+  "rules": {
+    "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }],
+    "class-methods-use-this": "off",
+    "no-console": "off",
+    "no-nested-ternary": "off",
+    "no-param-reassign": "off",
+    "no-useless-escape": "off",
+    "prefer-destructuring": "off",
+    "camelcase": "off",
+    "max-len": "off",
+    "no-underscore-dangle": "off",
+    "react/display-name": "off",
+    "react/prop-types": 0,
+    "operator-linebreak": "off",
+    "object-curly-newline": "off",
+    "comma-dangle": "off",
+    "indent": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off",
+    "no-confusing-arrow": "off"
+  }
+}
