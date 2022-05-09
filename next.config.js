@@ -11,10 +11,6 @@ module.exports = {
         destination: '/api/verify',
       },
       {
-        source: '/status',
-        destination: '/api/status',
-      },
-      {
         source: '/:path*',
         destination: '/api'
       },
