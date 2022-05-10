@@ -114,6 +114,4 @@ describe('API Route - /oauth2/authorize', () => {
     expect(appStoreLink.getAttribute('href')).toBe(APP_STORE_URI);
     expect(gplayStoreLink.getAttribute('href')).toBe(GPLAY_STORE_URI);
   });
-
-  // TODO: test and view for html error state
 });
