@@ -1,13 +1,12 @@
-jest.mock('memjs');
 import memjs from 'memjs';
 import { createMocks } from 'node-mocks-http';
-import mockAxios from 'jest-mock-axios';
 
 import handleAuthorize from '../../../pages/api/oauth2/authorize';
-import handleVerify from '../../../pages/api/verify';
 import { WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
-import { authQueryProps, expectedSubmitUri, getMockCredential, authStateID } from './fixtures';
+import { authQueryProps, expectedSubmitUri } from './fixtures';
 import { submitCredential } from './helpers';
+
+jest.mock('memjs');
 
 describe('API Route - /oauth2/authorize', () => {
   afterEach(() => {

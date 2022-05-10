@@ -6,7 +6,7 @@ import {
   API_KEY_TESTNET,
 } from '../config';
 
-export async function verifyCredential(credential, testnet = false) {
+export default async function verifyCredential(credential, testnet = false) {
   try {
     const d = await axios.post(
       testnet ? DOCK_API_VERIFY_URL_TESTNET : DOCK_API_VERIFY_URL,

@@ -1,14 +1,13 @@
-jest.mock('memjs');
 import memjs from 'memjs';
 import { createMocks } from 'node-mocks-http';
-import mockAxios from 'jest-mock-axios';
 
 import handleUserInfo from '../../../pages/api/oauth2/userinfo';
 import handleToken from '../../../pages/api/oauth2/token';
 
-import { WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
-import { authQueryProps, expectedSubmitUri, getMockCredential, authStateID, defaultSubject } from './fixtures';
 import { createAuthRequest, submitCredential, getAccessToken } from './helpers';
+import { defaultSubject } from './fixtures';
+
+jest.mock('memjs');
 
 async function getToken(authParams) {
   const { req, res } = await getAccessToken(authParams);

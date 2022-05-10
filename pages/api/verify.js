@@ -1,6 +1,6 @@
 import cors from '../../src/utils/cors';
 import { model } from '../../src/oauth/server';
-import { verifyCredential as verifyVC } from '../../src/utils/verify-credential';
+import verifyVC from '../../src/utils/verify-credential';
 
 export async function verifyCredential(id, credential) {
   if (credential.type.indexOf('DockAuthCredential') === -1) {
@@ -68,7 +68,6 @@ export default async (req, res) => {
       verified: isVerified,
     });
   } catch (e) {
-    console.error(e);
     res.status(400).json({
       error: e.message,
     });

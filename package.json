@@ -8,10 +8,10 @@
     "start": "NODE_ENV='production' next start",
     "export": "next export",
     "lint": "next lint",
-    "test": "jest --verbose ./tests/unit",
+    "test": "jest --verbose ./tests/integration",
     "test:e2e": "jest --verbose ./tests/e2e",
     "start:e2e": "npx start-server-and-test dev:test 3000 \"yarn test:e2e\"",
-    "format": "dprint fmt && next lint --fix",
+    "format": "dprint fmt && yarn lint --fix",
     "format-check": "dprint check",
     "coverage": "jest --coverage --collectCoverageFrom=src/**/**"
   },

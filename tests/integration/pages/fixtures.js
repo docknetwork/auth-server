@@ -11,7 +11,7 @@ export const authQueryProps = {
 
 export const authStateID = `${authQueryProps.client_id}${authQueryProps.state}`;
 
-export const expectedSubmitUri = SERVER_URL + `/verify?id=${authStateID}`;
+export const expectedSubmitUri = `${SERVER_URL}/verify?id=${authStateID}`;
 
 export const defaultSubject = {
   name: 'John Doe',

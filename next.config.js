@@ -1,5 +1,8 @@
 module.exports = {
   reactStrictMode: true,
+  eslint: {
+    dirs: ['pages', 'src', 'tests'],
+  },
   async rewrites() {
     return [
       {
