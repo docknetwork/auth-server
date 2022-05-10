@@ -13,6 +13,26 @@ import {
 } from '../../../src/config';
 import { getMockCredential, authQueryProps, expectedSubmitUri, authStateID } from './fixtures';
 
+export async function getAccessToken(authParams) {
+    const { req, res } = createMocks({
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'transfer-encoding': 'chunked',
+      },
+      body: {
+        ...authParams,
+        client_id: authQueryProps.client_id,
+        client_secret: 'secret:' + authQueryProps.client_id,
+        redirect_uri: authQueryProps.redirect_uri,
+        grant_type: 'authorization_code',
+        scope: 'public',
+      },
+    });
+
+  return { req, res };
+}
+
 export async function submitCredential(verified = true) {
   const { req, res } = createMocks({
     method: 'POST',
@@ -47,6 +67,6 @@ export async function createAuthRequest() {
     return {
       code: redirectURL.searchParams.get('code'),
       state: redirectURL.searchParams.get('state'),
-    }
+    };
   }
 }

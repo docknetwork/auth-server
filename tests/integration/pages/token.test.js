@@ -9,7 +9,7 @@ import handleVerify from '../../../pages/api/verify';
 
 import { WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
 import { authQueryProps, expectedSubmitUri, getMockCredential, authStateID } from './fixtures';
-import { createAuthRequest, submitCredential } from './helpers';
+import { createAuthRequest, submitCredential, getAccessToken } from './helpers';
 
 describe('API Route - /oauth2/token', () => {
   let authParams;
@@ -25,25 +25,10 @@ describe('API Route - /oauth2/token', () => {
   });
 
   test('receives a valid code and returns an auth token', async () => {
-    const { req, res } = createMocks({
-      method: 'POST',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'transfer-encoding': 'chunked',
-      },
-      body: {
-        ...authParams,
-        client_id: authQueryProps.client_id,
-        client_secret: 'secret:' + authQueryProps.client_id,
-        redirect_uri: authQueryProps.redirect_uri,
-        grant_type: 'authorization_code',
-        scope: 'public',
-      },
-    });
-
+    const { req, res } = await getAccessToken(authParams);
     await handleToken(req, res);
 
-    const tokenData = JSON.parse(res._getData());
+    const tokenData = await JSON.parse(res._getData());
     expect(tokenData.access_token).toBeDefined();
     expect(tokenData.token_type).toBeDefined();
     expect(tokenData.expires_in).toBeDefined();
