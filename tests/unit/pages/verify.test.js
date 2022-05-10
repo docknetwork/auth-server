@@ -1,8 +1,7 @@
 jest.mock('memjs');
-
+import memjs from 'memjs';
 import { createMocks } from 'node-mocks-http';
 import mockAxios from 'jest-mock-axios';
-import memjs from 'memjs';
 
 import handleAuthorize from '../../../pages/api/oauth2/authorize';
 import handleVerify from '../../../pages/api/verify';

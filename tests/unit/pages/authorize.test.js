@@ -1,3 +1,5 @@
+jest.mock('memjs');
+import memjs from 'memjs';
 import { createMocks } from 'node-mocks-http';
 import handleAuthorize from '../../../pages/api/oauth2/authorize';
 import { WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
@@ -5,7 +7,7 @@ import { authQueryProps, expectedSubmitUri } from './fixtures';
 
 describe('API Route - /oauth2/authorize', () => {
   afterEach(() => {
-    // mockMemcached.reset();
+    memjs.mockClear();
   });
 
   test('returns error with invalid state', async () => {
