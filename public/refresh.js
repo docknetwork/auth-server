@@ -1,10 +1,10 @@
 const intervalCheck = setInterval(checkStatus, 2500);
 
 function onComplete(url) {
-  document.getElementById('sign-in').style.display = 'none';
+  document.getElementById('qr-wrapper').style.display = 'none';
   document.getElementById('redirecting').style.display = 'flex';
   document.getElementById('redirect-uri-link').href = url;
-  window.location.href = url;
+  // window.location.href = url;
 }
 
 function checkStatus() {
