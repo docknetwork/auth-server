@@ -11,15 +11,9 @@ import {
   GPLAY_STORE_URI,
   DOCK_API_VERIFY_URL,
 } from '../../../src/config';
-import { getMockCredential, authQueryProps, expectedSubmitUri, authStateID } from './fixtures';
 
-async function createAuthRequest() {
-  const { req, res } = createMocks({
-    method: 'GET',
-    query: authQueryProps,
-  });
-  await handleAuthorize(req, res);
-}
+import { getMockCredential, authQueryProps, expectedSubmitUri, authStateID } from './fixtures';
+import { createAuthRequest } from './helpers';
 
 describe('API Route - /oauth2/verify', () => {
   afterEach(() => {

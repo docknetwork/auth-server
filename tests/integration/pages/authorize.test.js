@@ -7,27 +7,7 @@ import handleAuthorize from '../../../pages/api/oauth2/authorize';
 import handleVerify from '../../../pages/api/verify';
 import { WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
 import { authQueryProps, expectedSubmitUri, getMockCredential, authStateID } from './fixtures';
-
-async function submitCredential() {
-  const { req, res } = createMocks({
-    method: 'POST',
-    query: {
-      id: authStateID,
-    },
-    body: {
-      vc: getMockCredential(authStateID),
-    },
-  });
-
-  const promise = handleVerify(req, res);
-
-  // Mock response for credential verification
-  setTimeout(() => {
-    mockAxios.mockResponse({ data: { verified: true } });
-  }, 500);
-
-  await promise;
-}
+import { submitCredential } from './helpers';
 
 describe('API Route - /oauth2/authorize', () => {
   afterEach(() => {

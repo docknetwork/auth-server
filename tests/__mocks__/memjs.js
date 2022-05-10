@@ -4,6 +4,7 @@ class MockClient {
   constructor() {
     this.get = jest.fn(this.mockGet.bind(this));
     this.set = jest.fn(this.mockSet.bind(this));
+    this.delete = jest.fn(this.mockDelete.bind(this));
     this.store = {};
   }
 
@@ -15,6 +16,10 @@ class MockClient {
 
   mockSet(id, value) {
     this.store[id] = value;
+  }
+
+  mockDelete(id) {
+    delete this.store[id];
   }
 
   reset() {

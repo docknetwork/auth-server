@@ -41,7 +41,7 @@ export default class MemcachedOAuthModel {
   }
 
   async saveToken(token, client, user) {
-    // console.log('saveToken', token);
+    console.log('saveToken', token);
     const savedToken = {
       accessToken: token.accessToken,
       accessTokenExpiresAt: token.accessTokenExpiresAt,
@@ -63,7 +63,7 @@ export default class MemcachedOAuthModel {
   }
 
   async getAuthorizationCode(code) {
-    // console.log('getAuthorizationCode', code);
+    console.log('getAuthorizationCode', code);
     const res = await this.get('authCode', code);
     if (res) {
       res.expiresAt = new Date(res.expiresAt);
@@ -73,7 +73,7 @@ export default class MemcachedOAuthModel {
   }
 
   async saveAuthorizationCode(code, client, user) {
-    // console.log('saveAuthorizationCode', code, client, user);
+    console.log('saveAuthorizationCode', code, client, user);
     await this.set('authCode', code.authorizationCode, {
       ...code,
       client,
@@ -84,18 +84,18 @@ export default class MemcachedOAuthModel {
   }
 
   async revokeAuthorizationCode(code) {
-    // console.log('revokeAuthorizationCode', code);
+    console.log('revokeAuthorizationCode', code);
     await this.delete('authCode', code.authorizationCode);
     return code;
   }
 
   async delete(type, id) {
-    // console.log('delete', type, id);
+    console.log('delete', type, id);
     await this.client.delete(getKey(type + ':' + id));
   }
 
   async set(type, id, value) {
-    // console.log('set', type, id, value);
+    console.log('set', type, id, value);
     await this.client.set(getKey(type + ':' + id), value ? JSON.stringify(value) : null, {
       expires: DATA_TTL,
     });
@@ -103,13 +103,13 @@ export default class MemcachedOAuthModel {
   }
 
   async get(type, id) {
-    // console.log('get', type, id);
+    console.log('get', type, id);
     const result = await this.client.get(getKey(type + ':' + id));
     return result && result.value && JSON.parse(result.value);
   }
 
   async insertVCCheck(vcId, state) {
-    // console.log('insertVCCheck', vcId, state);
+    console.log('insertVCCheck', vcId, state);
     const check = {
       id: vcId,
       state,
@@ -119,7 +119,7 @@ export default class MemcachedOAuthModel {
   }
 
   async completeVCCheck(id, user) {
-    // console.log('completeVCCheck', id, user);
+    console.log('completeVCCheck', id, user);
     const res = await this.get('vccheck', id);
     if (res) {
       res.user = user;
@@ -132,7 +132,7 @@ export default class MemcachedOAuthModel {
   }
 
   async getVCCheck(id) {
-    // console.log('getVCCheck', id);
+    console.log('getVCCheck', id);
     const res = await this.get('vccheck', id);
     return res;
   }
