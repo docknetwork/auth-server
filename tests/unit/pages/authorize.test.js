@@ -1,13 +1,76 @@
 jest.mock('memjs');
 import memjs from 'memjs';
 import { createMocks } from 'node-mocks-http';
+import mockAxios from 'jest-mock-axios';
+
 import handleAuthorize from '../../../pages/api/oauth2/authorize';
+import handleVerify from '../../../pages/api/verify';
 import { WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
-import { authQueryProps, expectedSubmitUri } from './fixtures';
+import { authQueryProps, expectedSubmitUri, getMockCredential, authStateID } from './fixtures';
+
+async function submitCredential() {
+  const { req, res } = createMocks({
+    method: 'POST',
+    query: {
+      id: authStateID,
+    },
+    body: {
+      vc: getMockCredential(authStateID),
+    },
+  });
+
+  const promise = handleVerify(req, res);
+
+  // Mock response for credential verification
+  setTimeout(() => {
+    mockAxios.mockResponse({ data: { verified: true } });
+  }, 500);
+
+  await promise;
+}
 
 describe('API Route - /oauth2/authorize', () => {
   afterEach(() => {
     memjs.mockReset();
+  });
+
+  test('returns redirect URI after validation', async () => {
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: authQueryProps,
+    });
+
+    await handleAuthorize(req, res);
+    await submitCredential();
+
+    const resultMock = createMocks({
+      method: 'GET',
+      query: authQueryProps,
+    });
+    await handleAuthorize(req, resultMock.res);
+
+    expect(JSON.parse(resultMock.res._getData()).redirect).toBeDefined();
+  });
+
+  test('redirects request after validation', async () => {
+    const { req, res } = createMocks({
+      method: 'GET',
+      headers: {
+        Accept: 'text/html',
+      },
+      query: authQueryProps,
+    });
+
+    await handleAuthorize(req, res);
+    await submitCredential();
+
+    const resultMock = createMocks({
+      method: 'GET',
+      query: authQueryProps,
+    });
+    await handleAuthorize(req, resultMock.res);
+
+    expect(resultMock.res._getRedirectUrl()).toBeDefined();
   });
 
   test('returns error with invalid state', async () => {

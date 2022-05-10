@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { DOCK_API_VERIFY_URL, DOCK_API_VERIFY_URL_TESTNET, API_KEY, API_KEY_TESTNET } from '../config';
+import {
+  DOCK_API_VERIFY_URL,
+  DOCK_API_VERIFY_URL_TESTNET,
+  API_KEY,
+  API_KEY_TESTNET,
+} from '../config';
 
 export async function verifyCredential(credential, testnet = false) {
   try {
