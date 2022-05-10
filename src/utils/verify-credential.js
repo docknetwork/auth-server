@@ -1,22 +1,21 @@
-import { apiRequest } from './api';
-
-const DOCK_API_VERIFY_URL = process.env.DOCK_API_VERIFY_URL || 'https://api.dock.io/verify';
-const DOCK_API_VERIFY_URL_TESTNET =
-  process.env.DOCK_API_VERIFY_URL_TESTNET || 'https://api-testnet.dock.io/verify';
-
-const API_KEY = process.env.API_KEY;
-const API_KEY_TESTNET = process.env.API_KEY_TESTNET;
+import axios from 'axios';
+import { DOCK_API_VERIFY_URL, DOCK_API_VERIFY_URL_TESTNET, API_KEY, API_KEY_TESTNET } from '../config';
 
 export async function verifyCredential(credential, testnet = false) {
   try {
-    const result = await apiRequest(
+    const d = await axios.post(
       testnet ? DOCK_API_VERIFY_URL_TESTNET : DOCK_API_VERIFY_URL,
-      'POST',
       credential,
-      testnet ? API_KEY_TESTNET : API_KEY
+      {
+        headers: {
+          'DOCK-API-TOKEN': testnet ? API_KEY_TESTNET : API_KEY,
+        },
+      }
     );
-    return result.verified;
+    const json = typeof d.data === 'string' ? JSON.parse(d.data) : d.data;
+    return json.verified;
   } catch (e) {
+    console.error(e);
     return false;
   }
 }

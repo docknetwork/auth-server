@@ -1,4 +1,4 @@
-import memjs from 'memjs';
+import { Client } from 'memjs';
 import { DATA_TTL, TOKEN_TTL } from '../config';
 
 function getKey(id) {
@@ -7,7 +7,7 @@ function getKey(id) {
 
 export default class MemcachedOAuthModel {
   constructor() {
-    this.client = memjs.Client.create();
+    this.client = Client.create();
   }
 
   async getAccessToken(bearerToken) {
@@ -103,13 +103,13 @@ export default class MemcachedOAuthModel {
   }
 
   async get(type, id) {
-    // console.log('get', type, id);
+    console.log('get', type, id);
     const result = await this.client.get(getKey(type + ':' + id));
     return result && result.value && JSON.parse(result.value);
   }
 
   async insertVCCheck(vcId, state) {
-    // console.log('insertVCCheck', vcId, state);
+    console.log('insertVCCheck', vcId, state);
     const check = {
       id: vcId,
       state,
@@ -119,7 +119,7 @@ export default class MemcachedOAuthModel {
   }
 
   async completeVCCheck(id, user) {
-    // console.log('completeVCCheck', id, user);
+    console.log('completeVCCheck', id, user);
     const res = await this.get('vccheck', id);
     if (res) {
       res.user = user;
