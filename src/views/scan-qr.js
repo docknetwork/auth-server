@@ -1,5 +1,7 @@
 import QRCode from 'qrcode';
 
+import { APP_STORE_URI, GPLAY_STORE_URI } from '../config';
+
 export default async function getPageHTML(query, qrUrl) {
   const qrData = await QRCode.toDataURL(qrUrl);
   return `
@@ -47,10 +49,10 @@ export default async function getPageHTML(query, qrUrl) {
                 <h2>Get Dock Wallet</h2>
                 <p>Available both on iOS and Android</p>
                 <div class="get-wallet-buttons">
-                  <a href="#">
+                  <a href="${APP_STORE_URI}" target="_blank">
                     <img src="/app-store.svg" alt="app-store-btn" />
                   </a>
-                  <a href="#">
+                  <a href="${GPLAY_STORE_URI}" target="_blank">
                     <img src="/gplay.svg" alt="gplay-store-btn" />
                   </a>
                 </div>
