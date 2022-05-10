@@ -1,20 +1,13 @@
 import { createMocks } from 'node-mocks-http';
 import handleAuthorize from '../../../pages/api/oauth2/authorize';
-
-import { SERVER_URL, WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
-
-const authQueryProps = {
-  response_type: 'code',
-  redirect_uri: 'https://dev-a3auqqdy.us.auth0.com/login/callback&scope=public',
-  state: 'LDO-aLl19QgZ4ZcdSj3EQMYDziuYUnAj',
-  client_id: 'dockstagingtest',
-  prompt: 'login',
-};
-
-const expectedSubmitUri =
-  SERVER_URL + `/verify?id=${authQueryProps.client_id}${authQueryProps.state}`;
+import { WALLET_APP_URI, APP_STORE_URI, GPLAY_STORE_URI } from '../../../src/config';
+import { authQueryProps, expectedSubmitUri } from './fixtures';
 
 describe('API Route - /oauth2/authorize', () => {
+  afterEach(() => {
+    // mockMemcached.reset();
+  });
+
   test('returns error with invalid state', async () => {
     const { req, res } = createMocks({
       method: 'GET',
@@ -77,4 +70,6 @@ describe('API Route - /oauth2/authorize', () => {
     expect(appStoreLink.getAttribute('href')).toBe(APP_STORE_URI);
     expect(gplayStoreLink.getAttribute('href')).toBe(GPLAY_STORE_URI);
   });
+
+  // TODO: test and view for html error state
 });
