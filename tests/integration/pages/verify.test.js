@@ -3,9 +3,7 @@ import { createMocks } from 'node-mocks-http';
 import mockAxios from 'jest-mock-axios';
 
 import handleVerify from '../../../pages/api/verify';
-import {
-  DOCK_API_VERIFY_URL,
-} from '../../../src/config';
+import { DOCK_API_VERIFY_URL } from '../../../src/config';
 
 import { getMockCredential, authStateID } from './fixtures';
 import { createAuthRequest } from './helpers';

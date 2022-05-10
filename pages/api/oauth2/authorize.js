@@ -2,6 +2,7 @@ import OAuth2Server from '@node-oauth/oauth2-server';
 import oauth, { model } from '../../../src/oauth/server';
 import { SERVER_URL, WALLET_APP_URI } from '../../../src/config';
 import getPageHTML from '../../../src/views/scan-qr';
+import getErrorHTML from '../../../src/views/error';
 
 function isValidAuthRequest(req) {
   if (!req.query) {
@@ -30,10 +31,11 @@ export default async (req, res) => {
 
   // Ensure the request query is valid, otherwise show json/html error state
   if (!isValidAuthRequest(req)) {
+    const errorMsg = 'Not a valid auth request';
     if (expectsHTML) {
-      res.send('Not a valid auth request');
+      res.send(getErrorHTML(errorMsg, req.query.redirect_uri));
     } else {
-      res.status(400).json({ error: 'Not a valid auth request' });
+      res.status(400).json({ error: errorMsg });
     }
     return;
   }
