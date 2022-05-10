@@ -3,29 +3,28 @@ import { model } from '../../src/oauth/server';
 import { verifyCredential as verifyVC } from '../../src/utils/verify-credential';
 
 export async function verifyCredential(id, credential) {
-  // if (credential.type.indexOf('DockAuthCredential') === -1) {
-  //   throw new Error('Wrong credential type');
-  // }
-  //
-  // const subject = credential.credentialSubject;
-  // if (Array.isArray(subject)) {
-  //   throw new Error('Subject cannot be array');
-  // }
-  //
-  // if (typeof subject !== 'object') {
-  //   throw new Error('Subject must be object');
-  // }
-  //
-  // if (!subject.state) {
-  //   throw new Error('Subject requires state');
-  // }
-  //
-  // if (!process.env.DISABLE_STATE_CHECK && subject.state !== id) {
-  //   throw new Error('State mismatch');
-  // }
+  if (credential.type.indexOf('DockAuthCredential') === -1) {
+    throw new Error('Wrong credential type');
+  }
+
+  const subject = credential.credentialSubject;
+  if (Array.isArray(subject)) {
+    throw new Error('Subject cannot be array');
+  }
+
+  if (typeof subject !== 'object') {
+    throw new Error('Subject must be object');
+  }
+
+  if (!subject.state) {
+    throw new Error('Subject requires state');
+  }
+
+  if (!process.env.DISABLE_STATE_CHECK && subject.state !== id) {
+    throw new Error('State mismatch');
+  }
 
   const isVerified = await verifyVC(credential, !!process.env.USE_TESTNET);
-  console.log('isVerified prod', isVerified)
   return isVerified;
 }
 
@@ -46,7 +45,6 @@ export default async (req, res) => {
   }
 
   const vcCheck = await model.getVCCheck(id);
-  console.log('vcCheck', vcCheck)
   if (!vcCheck || vcCheck.user) {
     res.status(400).json({
       error: `Invalid ID: ${id}`,
@@ -55,9 +53,7 @@ export default async (req, res) => {
   }
 
   try {
-    console.log('verifying', id)
     const isVerified = await verifyCredential(id, vc);
-      console.log('verifying isVerified', isVerified)
     if (isVerified) {
       // now that we are verified, we need to update the model so that
       // when user calls check it will return acess token

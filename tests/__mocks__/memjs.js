@@ -1,4 +1,6 @@
-export class MockClient {
+const memjs = jest.createMockFromModule('memjs');
+
+class MockClient {
   constructor() {
     this.get = jest.fn(this.mockGet.bind(this));
     this.set = jest.fn(this.mockSet.bind(this));
@@ -14,14 +16,20 @@ export class MockClient {
   mockSet(id, value) {
     this.store[id] = value;
   }
+
+  reset() {
+    this.store = {};
+  }
 }
 
-export const Client = {
-  create: jest.fn(() => new MockClient()),
+const client = new MockClient();
+
+memjs.Client = {
+  create: jest.fn(() => client),
 };
 
-const mock = jest.fn().mockImplementation(() => {
-  return { Client };
-});
+memjs.mockReset = () => {
+  client.reset();
+};
 
-export default mock;
+module.exports = memjs;

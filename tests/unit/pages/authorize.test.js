@@ -7,7 +7,7 @@ import { authQueryProps, expectedSubmitUri } from './fixtures';
 
 describe('API Route - /oauth2/authorize', () => {
   afterEach(() => {
-    memjs.mockClear();
+    memjs.mockReset();
   });
 
   test('returns error with invalid state', async () => {
