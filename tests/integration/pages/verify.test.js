@@ -109,4 +109,54 @@ describe('API Route - /oauth2/verify', () => {
     expect(res._getStatusCode()).toBe(400);
     expect(JSON.parse(res._getData()).error).toBeDefined();
   });
+
+  test('rejects missing post body', async () => {
+    await createAuthRequest();
+    const vc = getMockCredential(authStateID);
+    const { req, res } = createMocks({
+      method: 'POST',
+      query: {
+        id: authStateID,
+      },
+      body: { },
+    });
+
+    await handleVerify(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(JSON.parse(res._getData()).error).toEqual('Missing or invalid post body');
+  });
+
+  test('rejects missing ID', async () => {
+    await createAuthRequest();
+    const vc = getMockCredential(authStateID);
+    const { req, res } = createMocks({
+      method: 'POST',
+      query: {
+        id: null,
+      },
+      body: { vc },
+    });
+
+    await handleVerify(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(JSON.parse(res._getData()).error).toEqual('Missing or invalid post body');
+  });
+
+  test('rejects non-POST request', async () => {
+    await createAuthRequest();
+    const vc = getMockCredential(authStateID);
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: {
+        id: authStateID,
+      },
+    });
+
+    await handleVerify(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(JSON.parse(res._getData()).error).toEqual('Missing or invalid post body');
+  });
 });

@@ -52,24 +52,6 @@ describe('API Route - /oauth2/authorize', () => {
     expect(resultMock.res._getRedirectUrl()).toBeDefined();
   });
 
-  test('returns error with invalid state', async () => {
-    const { req, res } = createMocks({
-      method: 'GET',
-      query: {
-        ...authQueryProps,
-        state: undefined,
-        client_id: undefined,
-        response_type: undefined,
-        redirect_uri: undefined,
-      },
-    });
-
-    await handleAuthorize(req, res);
-
-    expect(res._getStatusCode()).toBe(400);
-    expect(JSON.parse(res._getData()).error).toBeDefined();
-  });
-
   test('returns JSON with submit URI when requesting JSON', async () => {
     const { req, res } = createMocks({
       method: 'GET',
@@ -113,5 +95,48 @@ describe('API Route - /oauth2/authorize', () => {
     const gplayStoreLink = body.querySelectorAll('.get-wallet-buttons > a')[1];
     expect(appStoreLink.getAttribute('href')).toBe(APP_STORE_URI);
     expect(gplayStoreLink.getAttribute('href')).toBe(GPLAY_STORE_URI);
+  });
+
+  test('returns JSON error with invalid state', async () => {
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: {
+        ...authQueryProps,
+        state: undefined,
+        client_id: undefined,
+        response_type: undefined,
+        redirect_uri: undefined,
+      },
+    });
+
+    await handleAuthorize(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(JSON.parse(res._getData()).error).toBeDefined();
+  });
+
+  test('returns HTML error with invalid state', async () => {
+    const { req, res } = createMocks({
+      method: 'GET',
+      headers: {
+        Accept: 'text/html',
+      },
+      query: {
+        ...authQueryProps,
+        state: undefined,
+        client_id: undefined,
+        response_type: undefined,
+        redirect_uri: undefined,
+      },
+    });
+
+    await handleAuthorize(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    const html = res._getData();
+    const body = document.createElement('div');
+    body.innerHTML = html;
+
+    expect(body.querySelector('p').innerHTML.trim()).toEqual('Not a valid auth request');
   });
 });

@@ -56,11 +56,6 @@ export default class MemcachedOAuthModel {
     return savedToken;
   }
 
-  async getUser() {
-    // Return false as user/password login isnt used here
-    return false;
-  }
-
   async getAuthorizationCode(code) {
     const res = await this.get('authCode', code);
     if (res) {
@@ -129,6 +124,11 @@ export default class MemcachedOAuthModel {
 
   async getRefreshToken() {
     // Return false here as this auth solution doesnt use refresh tokens
+    return false;
+  }
+
+  async getUser() {
+    // Return false as user/password login isnt used here
     return false;
   }
 }
