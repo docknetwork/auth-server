@@ -1,13 +1,7 @@
-import cors from '../../src/utils/cors';
 import { model } from '../../src/oauth/server';
 import { verifyCredential } from '../../src/utils/verify-credential';
 
 export default async (req, res) => {
-  // Apply cors to the request, OPTIONS will early out here
-  if (!cors(req, res)) {
-    return;
-  }
-
   // Ensure required parameters exist
   const { vc } = req.body;
   const { id } = req.query;

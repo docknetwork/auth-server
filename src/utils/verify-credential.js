@@ -26,7 +26,7 @@ export async function postVerify(credential, testnet = false) {
 }
 
 export function ensureAuthCredential(id, credential) {
-  if (credential.type.indexOf('DockAuthCredential') === -1) {
+  if (!credential.type || credential.type.indexOf('DockAuthCredential') === -1) {
     throw new Error('Wrong credential type');
   }
 

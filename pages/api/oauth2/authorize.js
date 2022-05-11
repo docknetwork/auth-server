@@ -3,24 +3,7 @@ import oauth, { model } from '../../../src/oauth/server';
 import { SERVER_URL, WALLET_APP_URI } from '../../../src/config';
 import getPageHTML from '../../../src/views/scan-qr';
 import getErrorHTML from '../../../src/views/error';
-
-function isValidAuthRequest(req) {
-  if (!req.query) {
-    return false;
-  }
-
-  const { state, client_id, response_type, redirect_uri } = req.query;
-  return !!(
-    typeof state === 'string' &&
-    state &&
-    typeof client_id === 'string' &&
-    client_id &&
-    typeof response_type === 'string' &&
-    response_type &&
-    typeof redirect_uri === 'string' &&
-    redirect_uri
-  );
-}
+import { isValidAuthRequest } from '../../../src/utils/request-validation';
 
 export default async (req, res) => {
   const request = new OAuth2Server.Request(req);
