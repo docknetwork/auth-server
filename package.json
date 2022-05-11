@@ -8,18 +8,20 @@
     "start": "NODE_ENV='production' next start",
     "export": "next export",
     "lint": "next lint",
-    "test": "jest --verbose ./tests/unit",
-    "test:e2e": "jest --verbose ./tests/e2e",
+    "test": "jest --verbose ./tests",
+    "test:integration": "jest --verbose ./tests/integration",
+    "test:unit": "jest --verbose ./tests/unit",
     "start:e2e": "npx start-server-and-test dev:test 3000 \"yarn test:e2e\"",
-    "format": "dprint fmt && next lint --fix",
+    "format": "dprint fmt && yarn lint --fix",
     "format-check": "dprint check",
-    "coverage": "jest --coverage --collectCoverageFrom=src/**/**"
+    "coverage": "jest --coverage --collectCoverageFrom=pages/**/**"
   },
   "dependencies": {
     "@node-oauth/oauth2-server": "^4.1.1",
     "axios": "^0.24.0",
     "memjs": "^1.3.0",
     "next": "12.1.0",
+    "node-mocks-http": "^1.11.0",
     "qrcode": "^1.5.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
