@@ -1,4 +1,4 @@
-export function isValidAuthRequest(req) {
+export default function isValidAuthRequest(req) {
   if (!req.query) {
     return false;
   }

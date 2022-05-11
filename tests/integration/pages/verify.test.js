@@ -112,13 +112,12 @@ describe('API Route - /oauth2/verify', () => {
 
   test('rejects missing post body', async () => {
     await createAuthRequest();
-    const vc = getMockCredential(authStateID);
     const { req, res } = createMocks({
       method: 'POST',
       query: {
         id: authStateID,
       },
-      body: { },
+      body: {},
     });
 
     await handleVerify(req, res);
@@ -146,7 +145,6 @@ describe('API Route - /oauth2/verify', () => {
 
   test('rejects non-POST request', async () => {
     await createAuthRequest();
-    const vc = getMockCredential(authStateID);
     const { req, res } = createMocks({
       method: 'GET',
       query: {

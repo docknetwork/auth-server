@@ -1,4 +1,4 @@
-import { isValidAuthRequest } from '../../../src/utils/request-validation';
+import isValidAuthRequest from '../../../src/utils/request-validation';
 
 const validQuery = {
   state: 'defined',
