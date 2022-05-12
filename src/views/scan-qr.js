@@ -33,7 +33,6 @@ export default async function getPageHTML(query, qrUrl) {
              </div>
              <div class="get-wallet-prompt-content">
                <h2>Get Dock Wallet</h2>
-               <p>Available both on iOS and Android</p>
                <div class="get-wallet-buttons">
                  <a href="${APP_STORE_URI}" target="_blank">
                    <img src="/app-store.svg" alt="app-store-btn" />
