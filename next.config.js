@@ -10,6 +10,18 @@ module.exports = {
         destination: '/api/oauth2/:path*',
       },
       {
+        source: '/oauth/:path*',
+        destination: '/api/oauth/:path*',
+      },
+      {
+        source: '/userinfo',
+        destination: '/api/oauth2/userinfo',
+      },
+      {
+        source: '/authorize',
+        destination: '/api/oauth2/authorize',
+      },
+      {
         source: '/verify',
         destination: '/api/verify',
       },
