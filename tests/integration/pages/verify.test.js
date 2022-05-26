@@ -68,7 +68,7 @@ describe('API Route - /oauth2/verify', () => {
           issuer: {
             id: vc.issuer,
           },
-        }
+        },
       },
     });
 
