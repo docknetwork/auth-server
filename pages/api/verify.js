@@ -28,6 +28,7 @@ export default async (req, res) => {
       await model.completeVCCheck(id, {
         ...vc.credentialSubject,
         id: vc.issuer,
+        user_id: vc.issuer,
         state: undefined,
       });
     }
