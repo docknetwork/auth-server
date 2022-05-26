@@ -4,7 +4,7 @@ function onComplete(url) {
   document.getElementById('qr-wrapper').style.display = 'none';
   document.getElementById('redirecting').style.display = 'flex';
   document.getElementById('redirect-uri-link').href = url;
-  // window.location.href = url;
+  window.location.href = url;
 }
 
 function checkStatus() {
