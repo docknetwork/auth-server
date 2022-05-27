@@ -21,19 +21,22 @@ export default async (req, res) => {
   }
 
   try {
+    const userId = typeof vc.issuer === 'object' ? vc.issuer.id : vc.issuer;
     const isVerified = await verifyCredential(id, vc);
     if (isVerified) {
       // now that we are verified, we need to update the model so that
       // when user calls check it will return acess token
       await model.completeVCCheck(id, {
         ...vc.credentialSubject,
-        id: vc.issuer,
+        id: userId,
+        user_id: userId,
         state: undefined,
       });
     }
 
     res.json({
       verified: isVerified,
+      userId,
     });
   } catch (e) {
     res.status(400).json({

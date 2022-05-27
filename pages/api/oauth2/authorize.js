@@ -11,6 +11,7 @@ export default async (req, res) => {
   const acceptHeader = req.headers && req.headers.accept;
   const expectsHTML = acceptHeader && acceptHeader.indexOf('application/json') === -1;
   const vcSubmitId = req.query.client_id + req.query.state;
+  const scope = req.query.scope || 'public';
 
   // Ensure the request query is valid, otherwise show json/html error state
   if (!isValidAuthRequest(req)) {
@@ -38,7 +39,7 @@ export default async (req, res) => {
       await model.insertVCCheck(vcSubmitId, req.query.state);
     }
 
-    const submitUrl = `${SERVER_URL}/verify?id=${vcSubmitId}`;
+    const submitUrl = `${SERVER_URL}/verify?id=${vcSubmitId}&scope=${scope}`;
     if (expectsHTML) {
       const deepLinkWrappedUrl = WALLET_APP_URI + encodeURIComponent(submitUrl);
       const html = await getPageHTML(req.query, deepLinkWrappedUrl);

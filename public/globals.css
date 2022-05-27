@@ -169,6 +169,10 @@ p {
   text-align: left;
 }
 
+.get-wallet-prompt-content h2 {
+  color: #ffffff;
+}
+
 .get-wallet-prompt-logo {
   flex-shrink: 0;
   margin-right: auto;
