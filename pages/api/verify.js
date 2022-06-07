@@ -22,7 +22,7 @@ export default async (req, res) => {
 
   try {
     const userId = typeof vc.issuer === 'object' ? vc.issuer.id : vc.issuer;
-    const isVerified = await verifyCredential(id, vc);
+    const [isVerified, verifyError] = await verifyCredential(id, vc);
     if (isVerified) {
       // now that we are verified, we need to update the model so that
       // when user calls check it will return acess token
@@ -36,10 +36,12 @@ export default async (req, res) => {
 
     res.json({
       verified: isVerified,
+      error: verifyError,
       userId,
     });
   } catch (e) {
     res.status(400).json({
+      verified: false,
       error: e.message,
     });
   }

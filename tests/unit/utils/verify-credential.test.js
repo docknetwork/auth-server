@@ -18,9 +18,10 @@ describe('Utils - postVerify', () => {
   test('requests credential veriifcation and returns true if successful', async () => {
     const promise = postVerify(credential);
     mockAxios.mockResponse({ data: { verified: true } });
-    const result = await promise;
+    const [result, error] = await promise;
 
     expect(result).toBe(true);
+    expect(error).toBe(null);
     expect(mockAxios.post).toHaveBeenCalledWith(DOCK_API_VERIFY_URL, credential, {
       headers: {
         'DOCK-API-TOKEN': undefined,
@@ -31,9 +32,10 @@ describe('Utils - postVerify', () => {
   test('requests credential veriifcation and returns false if unsuccessful', async () => {
     const promise = postVerify(credential);
     mockAxios.mockResponse({ data: { verified: false } });
-    const result = await promise;
+    const [result, error] = await promise;
 
     expect(result).toBe(false);
+    expect(error).toBeDefined();
     expect(mockAxios.post).toHaveBeenCalledWith(DOCK_API_VERIFY_URL, credential, {
       headers: {
         'DOCK-API-TOKEN': undefined,
@@ -44,8 +46,9 @@ describe('Utils - postVerify', () => {
   test('returns false if theres an error', async () => {
     const promise = postVerify(credential);
     mockAxios.mockError();
-    const result = await promise;
+    const [result, error] = await promise;
     expect(result).toBe(false);
+    expect(error).toBeDefined();
   });
 });
 

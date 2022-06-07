@@ -8,10 +8,10 @@ export async function postVerify(credential) {
         'DOCK-API-TOKEN': API_KEY,
       },
     });
-    return d.data.verified;
+    return [d.data.verified, !d.data.verified ? d.data : null];
   } catch (e) {
     console.error(e);
-    return false;
+    return [false, e];
   }
 }
 
