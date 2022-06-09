@@ -6,6 +6,7 @@ describe('Utils - isValidHttpUrl', () => {
     expect(isValidHttpUrl('https://google.com')).toEqual(true);
     expect(isValidHttpUrl('https://localhost')).toEqual(true);
     expect(isValidHttpUrl('https://localhost:3000')).toEqual(true);
+    expect(isValidHttpUrl('https://dock.io/login/auth/callback')).toEqual(true);
   });
 
   test('isValidHttpUrl sad path', () => {
