@@ -10,7 +10,9 @@ const CRYPTO_NONCE_LENGTH = 4;
 const CRYPTO_KEY = process.env.CRYPTO_KEY || '6352e481f4338d176352e481f4338d17';
 
 if (!process.env.CRYPTO_KEY) {
-  console.warn('WARNING: Using a compromised hard-coded static test/development key, set the CRYPTO_KEY env variable');
+  console.warn(
+    'WARNING: Using a compromised hard-coded static test/development key, set the CRYPTO_KEY env variable'
+  );
 }
 
 export function cleanInput(input) {
