@@ -1,9 +1,11 @@
 import {
-  encodeClientId, createClientSecret,
-  isValidClientSecret, getHash, cleanInput,
+  encodeClientId,
+  createClientSecret,
+  isValidClientSecret,
+  getHash,
+  cleanInput,
   decodeClientID,
   encrypt,
-
   CLIENT_ID_PREFIX,
 } from '../../../src/utils/client-crypto';
 
@@ -20,15 +22,24 @@ describe('Utils - client crypto', () => {
   test('decodeClientID works', () => {
     expect(!!decodeClientID(clientId)).toEqual(true);
     expect(!!decodeClientID(encrypt('thisisaninvalidclientid', CRYPTO_KEY))).toEqual(false);
-    expect(!!decodeClientID(encrypt(`${CLIENT_ID_PREFIX}thisisaninvalidclientid`, CRYPTO_KEY))).toEqual(false);
+    expect(
+      !!decodeClientID(encrypt(`${CLIENT_ID_PREFIX}thisisaninvalidclientid`, CRYPTO_KEY))
+    ).toEqual(false);
   });
 
   test('isValidClientSecret works', () => {
     expect(isValidClientSecret(clientId, clientSecret)).toEqual(true);
     expect(isValidClientSecret('invalidclientid', clientSecret)).toEqual(false);
     expect(isValidClientSecret(clientId, 'non encrypted client secret')).toEqual(false);
-    expect(isValidClientSecret(clientId, encrypt('thisisaninvalidclientsecret', CRYPTO_KEY))).toEqual(false);
-    expect(isValidClientSecret(clientId, '3ToCiUksf0JpfccX6P4RYfcXgHO2vNML2dhbNPWf6QxT9taLDEbbw6cGObrYqc9')).toEqual(false);
+    expect(
+      isValidClientSecret(clientId, encrypt('thisisaninvalidclientsecret', CRYPTO_KEY))
+    ).toEqual(false);
+    expect(
+      isValidClientSecret(
+        clientId,
+        '3ToCiUksf0JpfccX6P4RYfcXgHO2vNML2dhbNPWf6QxT9taLDEbbw6cGObrYqc9'
+      )
+    ).toEqual(false);
   });
 
   test('getHash works', () => {
