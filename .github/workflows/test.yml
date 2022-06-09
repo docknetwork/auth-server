@@ -28,8 +28,5 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Unit test
-        run: yarn test:unit
-
-      - name: E2E test
-        run: yarn test:integration
+      - name: Run tests
+        run: yarn coverage
