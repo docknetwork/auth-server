@@ -2,7 +2,6 @@ import memjs from 'memjs';
 import { createMocks } from 'node-mocks-http';
 
 import handleRegister from '../../../pages/api/register';
-import { createAuthRequest, submitCredential, getAccessToken } from './helpers';
 
 jest.mock('memjs');
 
@@ -13,16 +12,8 @@ const registerOptions = {
 };
 
 describe('API Route - /register', () => {
-  let authParams;
-
   afterEach(() => {
     memjs.mockReset();
-  });
-
-  beforeEach(async () => {
-    // await createAuthRequest();
-    // await submitCredential();
-    // authParams = await createAuthRequest();
   });
 
   test('can register a new client to get id and secret', async () => {

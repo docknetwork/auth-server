@@ -13,7 +13,9 @@ export default async (req, res) => {
 
   // Ensure required parameters exist
   if (!redirect_uris || !name || !website || !Array.isArray(redirect_uris)) {
-    res.status(400).send('Parameters are required: redirect_uris (array of urls), name (string), website (url)');
+    res
+      .status(400)
+      .send('Parameters are required: redirect_uris (array of urls), name (string), website (url)');
     return;
   }
 
