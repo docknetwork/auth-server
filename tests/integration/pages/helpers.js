@@ -13,12 +13,12 @@ export async function getAccessToken(authParams) {
       'transfer-encoding': 'chunked',
     },
     body: {
-      ...authParams,
       client_id: authQueryProps.client_id,
-      client_secret: `secret:${authQueryProps.client_id}`,
+      client_secret: authQueryProps.client_secret,
       redirect_uri: authQueryProps.redirect_uri,
       grant_type: 'authorization_code',
       scope: 'public',
+      ...authParams,
     },
   });
 

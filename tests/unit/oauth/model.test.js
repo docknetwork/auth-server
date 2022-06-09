@@ -1,5 +1,6 @@
 import memjs from 'memjs';
 import MemcachedOAuthModel from '../../../src/oauth/model';
+import { encodeClientId } from '../../../src/utils/client-crypto';
 
 jest.mock('memjs');
 
@@ -8,6 +9,16 @@ describe('Oauth Memcached Model', () => {
 
   afterEach(() => {
     memjs.mockReset();
+  });
+
+  test('invalid getClient returns false', async () => {
+    expect(await model.getClient('invalidid')).toEqual(false);
+    expect(
+      await model.getClient(
+        encodeClientId({ name: 'test', website: 'https://t.com', redirect_uris: ['t://t'] }),
+        'invalidsecret'
+      )
+    ).toEqual(false);
   });
 
   test('getUser returns false', async () => {

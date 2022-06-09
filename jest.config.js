@@ -22,6 +22,14 @@ const jestConfig = async () => {
   const nextJestConfig = await createJestConfig(customJestConfig)();
   return {
     ...nextJestConfig,
+    coverageThreshold: {
+      global: {
+        branches: 100,
+        functions: 100,
+        lines: 100,
+        statements: 100,
+      }
+    },
     transformIgnorePatterns: [
       "/node_modules/(?!@polkadot|@babel|@docknetwork)"
     ],

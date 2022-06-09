@@ -13,7 +13,7 @@ async function getToken(authParams) {
   const { req, res } = await getAccessToken(authParams);
   await handleToken(req, res);
 
-  const tokenData = await JSON.parse(res._getData());
+  const tokenData = JSON.parse(res._getData());
   return tokenData.access_token;
 }
 
@@ -46,5 +46,22 @@ describe('API Route - /oauth2/userinfo', () => {
     const profile = JSON.parse(res._getData());
     expect(profile.name).toEqual(defaultSubject.name);
     expect(profile.email).toEqual(defaultSubject.email);
+  });
+
+  test('error state', async () => {
+    const accessToken = await getToken(authParams);
+    expect(accessToken).toBeDefined();
+
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: {
+        access_token: null,
+      },
+    });
+
+    await handleUserInfo(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(res._getData()).toEqual('Unauthorized request: no authentication given');
   });
 });

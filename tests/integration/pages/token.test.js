@@ -22,10 +22,22 @@ describe('API Route - /oauth2/token', () => {
     const { req, res } = await getAccessToken(authParams);
     await handleToken(req, res);
 
-    const tokenData = await JSON.parse(res._getData());
+    expect(res._isJSON()).toBe(true);
+
+    const tokenData = JSON.parse(res._getData());
     expect(tokenData.access_token).toBeDefined();
     expect(tokenData.token_type).toBeDefined();
     expect(tokenData.expires_in).toBeDefined();
     expect(tokenData.refresh_token).toBeDefined();
+  });
+
+  test('error state', async () => {
+    const { req, res } = await getAccessToken({
+      ...authParams,
+      client_secret: null,
+    });
+    await handleToken(req, res);
+    expect(res._getStatusCode()).toBe(400);
+    expect(res._getData()).toEqual('Invalid client: cannot retrieve client credentials');
   });
 });

@@ -4,8 +4,13 @@ import oauth from '../../../src/oauth/server';
 export default async (req, res) => {
   const request = new OAuth2Server.Request(req);
   const response = new OAuth2Server.Response(res);
-  await oauth.token(request, response);
-  res.json(response.body);
+  try {
+    await oauth.token(request, response);
+    res.json(response.body);
+  } catch (e) {
+    console.error(e);
+    res.status(400).send(e.message);
+  }
 };
 
 export const config = {
