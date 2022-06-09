@@ -1,5 +1,6 @@
 import { Client } from 'memjs';
 import { DATA_TTL, TOKEN_TTL } from '../config';
+import { decodeClientID, isValidClientSecret } from '../utils/client-crypto';
 
 function getKey(id) {
   return `dockauthprefix:${id}`;
@@ -32,10 +33,20 @@ export default class MemcachedOAuthModel {
   }
 
   async getClient(clientId, clientSecret) {
+    const clientInfo = decodeClientID(clientId);
+
+    if (!clientInfo) {
+      return false;
+    }
+
+    if (clientSecret && !isValidClientSecret(clientId, clientSecret)) {
+      return false;
+    }
+
     return {
       clientId,
-      clientSecret: clientSecret || `secret:${clientId}`,
-      redirectUris: ['https://dev-a3auqqdy.us.auth0.com/login/callback'], // TODO: need a way of setting this per client
+      clientSecret,
+      redirectUris: [clientInfo.redirectUri],
       grants: ['authorization_code'],
     };
   }

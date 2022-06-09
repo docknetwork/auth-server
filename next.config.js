@@ -22,6 +22,10 @@ module.exports = {
         destination: '/api/oauth2/authorize',
       },
       {
+        source: '/register',
+        destination: '/api/register',
+      },
+      {
         source: '/verify',
         destination: '/api/verify',
       },

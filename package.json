@@ -14,7 +14,7 @@
     "start:e2e": "npx start-server-and-test dev:test 3000 \"yarn test:e2e\"",
     "format": "dprint fmt && yarn lint --fix",
     "format-check": "dprint check",
-    "coverage": "jest --coverage --collectCoverageFrom=pages/**/**"
+    "coverage": "jest --coverage --collectCoverageFrom={pages,src}/**/**"
   },
   "dependencies": {
     "@node-oauth/oauth2-server": "^4.1.1",

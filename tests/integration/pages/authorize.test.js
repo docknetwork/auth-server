@@ -112,7 +112,24 @@ describe('API Route - /oauth2/authorize', () => {
     await handleAuthorize(req, res);
 
     expect(res._getStatusCode()).toBe(400);
-    expect(JSON.parse(res._getData()).error).toBeDefined();
+    expect(res._getData()).toEqual('Invalid client ID');
+  });
+
+  test('returns JSON error with invalid auth request', async () => {
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: {
+        ...authQueryProps,
+        state: undefined,
+        response_type: undefined,
+        redirect_uri: undefined,
+      },
+    });
+
+    await handleAuthorize(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(res._getData()).toEqual('Not a valid auth request');
   });
 
   test('returns HTML error with invalid state', async () => {
@@ -137,6 +154,6 @@ describe('API Route - /oauth2/authorize', () => {
     const body = document.createElement('div');
     body.innerHTML = html;
 
-    expect(body.querySelector('p').innerHTML.trim()).toEqual('Not a valid auth request');
+    expect(body.querySelector('p').innerHTML.trim()).toEqual('Invalid client ID');
   });
 });

@@ -1,15 +1,25 @@
 import { SERVER_URL } from '../../../src/config';
+import { encodeClientId, createClientSecret } from '../../../src/utils/client-crypto';
+
+export const clientInfo = {
+  name: 'Test App',
+  website: 'http://localhost:3000',
+  redirect_uris: ['http://localhost:3000/login/callback'],
+};
+
+const clientId = encodeClientId(clientInfo);
 
 export const authQueryProps = {
   response_type: 'code',
-  redirect_uri: 'https://dev-a3auqqdy.us.auth0.com/login/callback',
+  redirect_uri: 'http://localhost:3000/login/callback',
   state: 'LAO-aLl19QgZ4ZcdSj3EQMYDziuYUnAj',
-  client_id: 'dockstagingtest',
+  client_id: clientId,
   prompt: 'login',
   scope: 'public',
+  client_secret: createClientSecret(clientId),
 };
 
-export const authStateID = `${authQueryProps.client_id}${authQueryProps.state}`;
+export const authStateID = `${authQueryProps.client_id.substr(0, 8)}${authQueryProps.state}`;
 
 export const expectedSubmitUri = `${SERVER_URL}/verify?id=${authStateID}&scope=public`;
 
