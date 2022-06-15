@@ -49,7 +49,9 @@ export default async (req, res) => {
       await model.insertVCCheck(vcSubmitId, req.query.state);
     }
 
-    const submitUrl = `${SERVER_URL}/verify?id=${vcSubmitId}&scope=${scope}&client_name=${encodeURIComponent(clientInfo.name)}&client_website=${encodeURIComponent(clientInfo.website)}`;
+    const submitUrl = `${SERVER_URL}/verify?id=${vcSubmitId}&scope=${scope}&client_name=${encodeURIComponent(
+      clientInfo.name
+    )}&client_website=${encodeURIComponent(clientInfo.website)}`;
     if (expectsHTML) {
       const deepLinkWrappedUrl = WALLET_APP_URI + encodeURIComponent(submitUrl);
       const html = await getPageHTML(req.query, deepLinkWrappedUrl, clientInfo);
