@@ -13,8 +13,9 @@ export default async function getPageHTML(query, qrUrl, clientInfo) {
              Sign in to ${name}
            </h1>
            <p>
-             <strong><a href="${website}" target="_blank" rel="noopener noreferrer">${name}</a></strong>
-             wants you to sign in with your Decentralized Identity. Scan the QR code with your Dock Wallet app or click the button to continue.
+             You can sign in to <strong><a href="${website}" target="_blank" rel="noopener noreferrer">${name}</a></strong>
+             with your Web3 ID.<br/>
+             Scan the QR code with your Dock Wallet app or click the button to continue.
            </p>
            <div class="qr-wrapper" id="qr-wrapper">
              <img src="${qrData}" alt="qr-code" />
