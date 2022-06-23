@@ -41,7 +41,7 @@ This Authentication Verifiable Credential is sent to this auth service, which ve
 
 ## Development
 
-First, setup [#env-vars](the environment variables) and pre-requisite services and then you can run the development server:
+First, setup [the environment variables](#env-vars) and pre-requisite services and then you can run the development server:
 
 ```bash
 npm run dev
@@ -73,7 +73,7 @@ yarn start
 
 Running the auth server requires:
 
-- A free [https://certs.dock.io/](Dock Certs API key) in order to verify credentials. Set through API_KEY
+- A free [Dock Certs API key](https://certs.dock.io/) in order to verify credentials. Set through API_KEY
 - A memcached instance, you can find many free ones online for a small project or use a local docker container. Set through MEMCACHIER_SERVERS
 - A secure, randomly generated cryptographic key for authorizing clients set through CRYPTO_KEY
 - A public domain set through SERVER_URL (defaults to localhost:3000)
