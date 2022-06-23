@@ -1,4 +1,4 @@
-# Dock Web3 ID as an oauth2 provider
+# Dock Web3 ID as an OAuth 2.0 provider
 
 The primary feature of Dock Web3 ID is to be an authentication provider which can accept DIDs and Verfiable Credentials. To achieve this, we support oauth2. Typically, you would use an oauth2 library and that would have setup instructions for different providers. Please note that the domain here is for Dock's hosted instance. If you wish to use your own, replace the domain appropriately.
 
@@ -29,7 +29,7 @@ Ultimately the scope support depends on the wallet application being used to gat
 
 ## Endpoints
 
-The following endpoints are exposed by the auth service for oauth2:
+The following endpoints are exposed by the auth service for OAuth 2.0:
 
 |  URL | Purpose  |
 | ------------ | ------------ |
