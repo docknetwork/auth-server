@@ -31,7 +31,7 @@ This service can be used as an Auth0 Social Connector allowing users to sign int
 
 Decentralized Identifiers (DIDs) are cryptographically verifiable pseudonymous identifiers created by the user, owned by the user, and independent of any organization. DIDs contain no personal data about the user, the user may provide extra data you request such as their name, email etc. An example of a DID stored on the Dock blockchain could look like this:
 
-![sample-did](../public/DID%20example.jpg)
+![sample-did](./public/DID%20example.jpg)
 
 Each DID is supported by a Public-Private cryptographic key pair.
 
