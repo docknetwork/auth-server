@@ -33,9 +33,9 @@ The following endpoints are exposed by the auth service for oauth2:
 
 |  URL | Purpose  |
 | ------------ | ------------ |
-|  https://${domain}/oauth2/authorize | Authorize  |
-|  https://${domain}/oauth2/token | Access token  |
-|  https://${domain}/oauth2/userinfo | Get profile/user info  |
+|  https://auth.dock.io/oauth2/authorize | Authorize  |
+|  https://auth.dock.io/oauth2/token | Access token  |
+|  https://auth.dock.io/oauth2/userinfo | Get profile/user info  |
 
 
 ## NextAuth.js provider
