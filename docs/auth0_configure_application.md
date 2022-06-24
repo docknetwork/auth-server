@@ -1,8 +1,8 @@
-# Login with Dock - Auth0 Integration
+# Sign in with Dock Web3 ID - Auth0 Integration
 
-Login with Dock gives control back to your users by using a [Decentralized Identifier (DID)](https://docs.api.dock.io/#dids) stored in the user's Dock wallet to authenticate themselves.
+The Dock Web3 ID integration allows users to privately sign in to your app using [Decentralized Identifiers (DIDs)](https://docs.api.dock.io/#dids) & [Verifiable Credentials (VCs)](https://www.dock.io/) via scanning QR codes with their Dock Wallet apps. This step-by-step guide will show you how to integrate Dock Web3 ID into your authentication flow easily.
 
-By using a DID controlled by the user no data is stored by Dock about the user and no user tracking by Dock occurs. As long as the user maintains control of the DID they will be able to login with the same account information.
+![auth-flow](../public/Dock%20Web3%20ID%20Auth0%20Integration.jpg)
 
 ## Auth0 Registration
 

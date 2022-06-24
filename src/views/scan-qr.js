@@ -4,18 +4,18 @@ import { APP_STORE_URI, GPLAY_STORE_URI } from '../config';
 import sanitize from '../utils/sanitize';
 import wrapHTML from './base';
 
-export default async function getPageHTML(query, qrUrl, { name, website }) {
+export default async function getPageHTML(query, qrUrl, clientInfo) {
   const qrData = await QRCode.toDataURL(qrUrl);
+  const name = sanitize(clientInfo.name);
+  const website = sanitize(clientInfo.website);
   return wrapHTML(`
            <h1>
-             Sign in with your Dock Wallet
+             Sign in to ${name}
            </h1>
            <p>
-             Scan the QR code or click the button to sign in to <a href="${sanitize(
-               website
-             )}" target="_blank" rel="noopener noreferrer">${sanitize(
-    name
-  )}</a> with your DID using the Dock Wallet.
+             You can sign in to <strong><a href="${website}" target="_blank" rel="noopener noreferrer">${name}</a></strong>
+             with your Web3 ID.<br/>
+             Scan the QR code with your Dock Wallet app or click the button to continue.
            </p>
            <div class="qr-wrapper" id="qr-wrapper">
              <img src="${qrData}" alt="qr-code" />
