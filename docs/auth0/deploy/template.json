@@ -3,6 +3,6 @@
     "icon_url": "https://identicons.dev/static/icons/mono/png/icon-integrations-marketplace.png"
   },
   "strategy": "oauth2",
-  "name": "social-connection-integration-test",
-  "display_name": "Integration Test"
+  "name": "sign-in-with-dock-web3-id",
+  "display_name": "Sign in with Dock Web3 ID - Integration Test"
 }
