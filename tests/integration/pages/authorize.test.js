@@ -122,7 +122,6 @@ describe('API Route - /oauth2/authorize', () => {
         ...authQueryProps,
         state: undefined,
         response_type: undefined,
-        redirect_uri: undefined,
       },
     });
 
@@ -130,6 +129,21 @@ describe('API Route - /oauth2/authorize', () => {
 
     expect(res._getStatusCode()).toBe(400);
     expect(res._getData()).toEqual('Not a valid auth request');
+  });
+
+  test('returns JSON error with invalid redirect URI', async () => {
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: {
+        ...authQueryProps,
+        redirect_uri: 'https://google.com',
+      },
+    });
+
+    await handleAuthorize(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(res._getData()).toEqual('Invalid redirect URI');
   });
 
   test('returns HTML error with invalid state', async () => {
