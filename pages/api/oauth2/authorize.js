@@ -28,9 +28,13 @@ export default async (req, res) => {
     return throwError(res, expectsHTML, 'Invalid client ID', req.query.redirect_uri);
   }
 
+  if (clientInfo.redirectUri !== req.query.redirect_uri) {
+    return throwError(res, expectsHTML, 'Invalid redirect URI', clientInfo.redirectUri);
+  }
+
   // Ensure the request query is valid, otherwise show json/html error state
   if (!isValidAuthRequest(req)) {
-    return throwError(res, expectsHTML, 'Not a valid auth request', req.query.redirect_uri);
+    return throwError(res, expectsHTML, 'Not a valid auth request', clientInfo.redirectUri);
   }
 
   const vcSubmitId = clientId.substr(0, 8) + req.query.state;
