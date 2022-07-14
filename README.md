@@ -19,7 +19,6 @@ Roadmap:
 - Support more DID types
 - Support non self-signed credentials
 - Zero Knowledge Proofs
-- Selective Disclosure
 
 For more information about the upcoming features, [get in touch](https://www.dock.io/contact).
 
