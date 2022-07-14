@@ -1,6 +1,6 @@
 # Dock Web3 ID
 
-This service provides a SSI-friendly authentication solution for use with DIDs and Verifiable Credentials. There is an existing live service hosted at https://auth.dock.io however you may clone this repository/deploy it to vercel to spin up your own instance. It is mostly stateless, but does rely on a memcached instance currently for short-lived data transfer. No long term storage of user data is used, tokens and codes are obtained through cryptography. You can use this service to allow your users to provide their own user data, like you would request from "Login with Facebook" or "Sign in with Github".
+Web3 ID is a blockchain-based Authentication and Authorization system that uses Decentralized Identifiers (DIDs) and Verifiable Credentials. There is an existing live service hosted at https://auth.dock.io however you may clone this repository/deploy it to vercel to spin up your own instance. It is mostly stateless, but does rely on a memcached instance currently for short-lived data transfer. No long term storage of user data is used, tokens and codes are obtained through cryptography. You can use this service to allow your users to provide their own user data, like you would request from "Login with Facebook" or "Sign in with Github".
 
 Note: You will still want to verify a users email if requested with this service.
 
@@ -18,6 +18,9 @@ Roadmap:
 - OpenID Connect implementation
 - Support more DID types
 - Support non self-signed credentials
+- Zero Knowledge Proofs
+
+For more information about the upcoming features, [get in touch](https://www.dock.io/contact).
 
 ## As an OAuth 2.0 provider
 
@@ -87,3 +90,4 @@ SERVER_URL=https://mydomain.com/
 Deploy to vercel in one click with this button
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdocknetwork%2Fauth-server&env=MEMCACHIER_SERVERS,API_KEY,CRYPTO_KEY&envDescription=Environment%20variables%20needed%20for%20this%20applicaton&envLink=https%3A%2F%2Fgithub.com%2Fdocknetwork%2Fauth-server%23env-vars&project-name=did-auth&repo-name=did-auth&redirect-url=https%3A%2F%2Fdock.io%2F%3Fgtm_source%3Dauthdeploy)
+
