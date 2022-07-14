@@ -1,6 +1,6 @@
 # Sign in with Dock Web3 ID - Auth0 Integration
 
-The Dock Web3 ID integration allows users to privately sign in to your app using [Decentralized Identifiers (DIDs)](https://docs.api.dock.io/#dids) & [Verifiable Credentials (VCs)](https://www.dock.io/) via scanning QR codes with their Dock Wallet apps. This step-by-step guide will show you how to integrate Dock Web3 ID into your authentication flow easily.
+The Dock Web3 ID integration allows users to privately sign in to your app using [Decentralized Identifiers](https://dock.io/decentralized-identifiers) (DIDs) & [Verifiable Credentials](https://dock.io/verifiable-credentials) (VCs) via scanning QR codes with their Dock Wallet apps. This step-by-step guide will show you how to integrate Dock Web3 ID into your authentication flow easily.
 
 ## Under the Hood
 
