@@ -19,39 +19,56 @@ describe('API Route - /oauth2/verify', () => {
   test('verifies a valid auth credential', async () => {
     await createAuthRequest();
     const vc = getMockCredential(authStateID);
-    const { req, res } = createMocks({
-      method: 'POST',
-      query: {
-        id: authStateID,
-      },
-      body: {
-        vc,
-      },
-    });
 
-    const promise = handleVerify(req, res);
+    {
+      const { req, res } = createMocks({
+        method: 'POST',
+        query: {
+          id: authStateID,
+        },
+        body: {
+          vc,
+        },
+      });
 
-    // Mock response for credential verification
-    setTimeout(() => {
-      mockAxios.mockResponse({ data: { verified: true } });
-    }, 500);
+      const promise = handleVerify(req, res);
 
-    await promise;
+      // Mock response for credential verification
+      setTimeout(() => {
+        mockAxios.mockResponse({ data: { verified: true } });
+      }, 500);
 
-    expect(mockAxios.post).toHaveBeenCalledWith(DOCK_API_VERIFY_URL, vc, {
-      headers: {
-        'DOCK-API-TOKEN': undefined,
-      },
-    });
+      await promise;
 
-    // Expect first time request returns successful
-    expect(res._getStatusCode()).toBe(200);
-    expect(JSON.parse(res._getData()).verified).toEqual(true);
-    expect(JSON.parse(res._getData()).userId).toEqual(issuer);
+      expect(mockAxios.post).toHaveBeenCalledWith(DOCK_API_VERIFY_URL, vc, {
+        headers: {
+          'DOCK-API-TOKEN': undefined,
+        },
+      });
 
-    // Expect that trying to verify again will return an error
-    await handleVerify(req, res);
-    expect(res._getStatusCode()).toBe(400);
+      // Expect first time request returns successful
+      expect(res._getStatusCode()).toBe(200);
+      expect(JSON.parse(res._getData()).verified).toEqual(true);
+      expect(JSON.parse(res._getData()).userId).toEqual(issuer);
+    }
+
+    {
+      const { req, res } = createMocks({
+        method: 'POST',
+        query: {
+          id: authStateID,
+        },
+        body: {
+          vc,
+        },
+      });
+
+      // Expect that trying to verify immediately again will return success
+      await handleVerify(req, res);
+      expect(res._getStatusCode()).toBe(200);
+      expect(JSON.parse(res._getData()).verified).toEqual(true);
+      expect(JSON.parse(res._getData()).userId).toEqual(issuer);
+    }
   });
 
   test('verifies a valid auth credential with issuer as object', async () => {
@@ -175,6 +192,25 @@ describe('API Route - /oauth2/verify', () => {
 
     expect(res._getStatusCode()).toBe(400);
     expect(JSON.parse(res._getData()).error).toEqual('Missing or invalid post body');
+  });
+
+  test('rejects invalid ID', async () => {
+    await createAuthRequest();
+    const vc = getMockCredential(authStateID);
+    const { req, res } = createMocks({
+      method: 'POST',
+      query: {
+        id: 'thisisisinvalid',
+      },
+      body: { vc },
+    });
+
+    await handleVerify(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(JSON.parse(res._getData()).error).toEqual(
+      'Invalid authorization ID, please go back and try again. (ID: thisisisinvalid)'
+    );
   });
 
   test('rejects non-POST request', async () => {
