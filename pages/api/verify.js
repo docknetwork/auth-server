@@ -12,10 +12,20 @@ export default async (req, res) => {
     return;
   }
 
+  // Get the check, error if it doesnt exist
   const vcCheck = await model.getVCCheck(id);
-  if (!vcCheck || vcCheck.user) {
+  if (!vcCheck) {
     res.status(400).json({
-      error: `Invalid ID: ${id}`,
+      error: `Invalid authorization ID, please go back and try again. (ID: ${id})`,
+    });
+    return;
+  }
+
+  // Check was completed previously, return valid
+  if (vcCheck.complete) {
+    res.json({
+      verified: true,
+      userId: vcCheck.user.id,
     });
     return;
   }
