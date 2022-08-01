@@ -1,0 +1,26 @@
+{
+  "authorizationURL": "https://auth.dock.io/oauth2/authorize",
+  "tokenURL": "https://auth.dock.io/oauth2/token",
+  "permissions": [
+    {
+      "scope": "public email",
+      "label": "Email",
+      "required": false,
+      "default": true
+    }
+  ],
+  "configuration": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "Public unique identifier for this application.",
+      "required": true
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Secret for this application.",
+      "required": true
+    }
+  ]
+}
