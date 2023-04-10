@@ -5,6 +5,8 @@ export default async (req, res) => {
   // Ensure required parameters exist
   const { vc } = req.body;
   const { id } = req.query;
+
+//  console.log(`vc: ${JSON.stringify(vc)}`);
   if (req.method !== 'POST' || !vc || !id) {
     res.status(400).json({
       error: 'Missing or invalid post body',
@@ -31,24 +33,30 @@ export default async (req, res) => {
   }
 
   try {
-    const userId = typeof vc.issuer === 'object' ? vc.issuer.id : vc.issuer;
-    const [isVerified, verifyError] = await verifyCredential(id, vc);
-    if (isVerified) {
-      // now that we are verified, we need to update the model so that
-      // when user calls check it will return acess token
-      await model.completeVCCheck(id, {
-        ...vc.credentialSubject,
-        id: userId,
-        user_id: userId,
-        state: undefined,
-      });
-    }
-
-    res.json({
-      verified: isVerified,
-      error: verifyError,
-      userId,
+    console.log(`IIW Attendee: ${vc?.credentialSubject?.name?.padEnd(40, ' -')}  ${JSON.stringify(vc.issuer)}`);
+    res.status(200).json({
+      verified: true,
+      userId: 0
     });
+
+    // const userId = typeof vc.issuer === 'object' ? vc.issuer.id : vc.issuer;
+    // const [isVerified, verifyError] = await verifyCredential(id, vc);
+    // if (isVerified) {
+    //   // now that we are verified, we need to update the model so that
+    //   // when user calls check it will return acess token
+    //   await model.completeVCCheck(id, {
+    //     ...vc.credentialSubject,
+    //     id: userId,
+    //     user_id: userId,
+    //     state: undefined,
+    //   });
+    // }
+
+    // res.json({
+    //   verified: isVerified,
+    //   error: verifyError,
+    //   userId,
+    // });
   } catch (e) {
     res.status(400).json({
       verified: false,

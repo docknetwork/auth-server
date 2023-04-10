@@ -24,6 +24,9 @@ export default async (req, res) => {
   const scope = req.query.scope;
   const clientInfo = decodeClientID(clientId);
 
+//  console.log(`Client ID: ${clientId}`);
+//  console.log(`Client Info: ${clientInfo}`);
+
   if (!clientInfo) {
     return throwError(res, expectsHTML, 'Invalid client ID', req.query.redirect_uri);
   }
