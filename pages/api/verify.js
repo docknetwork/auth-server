@@ -1,5 +1,6 @@
 import { model } from '../../src/oauth/server';
-import { verifyCredential } from '../../src/utils/verify-credential';
+import { postIssue } from '../../src/utils/verify-credential';
+import { AUTO_DISTRIBUTE_VC } from '../../src/config';
 
 export default async (req, res) => {
   // Ensure required parameters exist
@@ -34,9 +35,37 @@ export default async (req, res) => {
 
   try {
     console.log(`IIW Attendee: ${vc?.credentialSubject?.name?.padEnd(40, ' -')}  ${JSON.stringify(vc.issuer)}`);
+
+    let issueResponse = {
+      data: ''
+    };
+    if (AUTO_DISTRIBUTE_VC) {
+      const issueVc = {
+        persist: false,
+        algorithm: 'dockbbs+',
+        distribute: true,
+
+        credential: {
+          name: 'Proof of IIW-36 Attendance',
+          issuer: 'did:dock:5H3jLBStH3zPH7ZfWFpfNHY8DMMTbVgqyTnsdQDk3v9xyXsX',
+          type: [
+            'VerifiableCredential',
+            'BasicCredential'
+          ],
+          subject: {
+            id: vc.issuer.id ?? vc.issuer,
+            name: vc.credentialSubject.name,
+            email: 'demo@dock.io'
+          }
+        }
+      };
+
+      issueResponse = await postIssue(issueVc);
+    }
     res.status(200).json({
       verified: true,
-      userId: 0
+      userId: 0,
+      message: issueResponse.data
     });
 
     // const userId = typeof vc.issuer === 'object' ? vc.issuer.id : vc.issuer;

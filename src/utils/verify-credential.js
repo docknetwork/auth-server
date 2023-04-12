@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DOCK_API_VERIFY_URL, API_KEY } from '../config';
+import { DOCK_API_VERIFY_URL, DOCK_API_ISSUE_URL, API_KEY } from '../config';
 
 export async function postVerify(credential) {
   try {
@@ -9,6 +9,20 @@ export async function postVerify(credential) {
       },
     });
     return [d.data.verified, !d.data.verified ? d.data : null];
+  } catch (e) {
+    console.error(e);
+    return [false, e];
+  }
+}
+
+export async function postIssue(credential) {
+  try {
+    const d = await axios.post(DOCK_API_ISSUE_URL, credential, {
+      headers: {
+        'DOCK-API-TOKEN': API_KEY,
+      },
+    });
+    return d.data; // [d.data.verified, !d.data.verified ? d.data : null];
   } catch (e) {
     console.error(e);
     return [false, e];
