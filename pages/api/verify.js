@@ -41,13 +41,14 @@ export default async (req, res) => {
     };
     if (AUTO_DISTRIBUTE_VC) {
       const issueVc = {
-        persist: false,
+        persist: true,
+        password: 'iiw36',
         algorithm: 'dockbbs+',
         distribute: true,
-
+        template: '9045e6bf-196b-44fe-9975-5b21a06223f3',
         credential: {
-          name: 'Proof of IIW-36 Attendance',
-          issuer: 'did:dock:5H3jLBStH3zPH7ZfWFpfNHY8DMMTbVgqyTnsdQDk3v9xyXsX',
+          name: 'IIW Proof of Attendance',
+          issuer: 'did:dock:5Da5Y1eDqK2wtdEwjCCmBWeCDzH3TuRSMDM7anGdmpb32S5y',
           type: [
             'VerifiableCredential',
             'BasicCredential'
@@ -55,7 +56,9 @@ export default async (req, res) => {
           subject: {
             id: vc.issuer.id ?? vc.issuer,
             name: vc.credentialSubject.name,
-            email: 'demo@dock.io'
+            event: 'IIW 36',
+            eventDate: '04/19/2023',
+            eventLocation: 'Computer History Museum'
           }
         }
       };
