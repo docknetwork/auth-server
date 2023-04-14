@@ -51,14 +51,23 @@ export default async (req, res) => {
           issuer: 'did:dock:5Da5Y1eDqK2wtdEwjCCmBWeCDzH3TuRSMDM7anGdmpb32S5y',
           type: [
             'VerifiableCredential',
-            'BasicCredential'
+            'ProofOfAttendance'
           ],
           subject: {
             id: vc.issuer.id ?? vc.issuer,
             name: vc.credentialSubject.name,
-            event: 'IIW 36',
-            eventDate: '04/19/2023',
-            eventLocation: 'Computer History Museum'
+            event3: {
+              name: 'Internet Identity Workshop IIWXXXVI #36 2023A',
+              date: '2023-04-19',
+              website: 'https://internetidentityworkshop.com/',
+              location: {
+                name: 'Computer History Museum',
+                address1: '1401 N Shoreline Blvd',
+                city: 'Mountain View',
+                stateProvince: 'California',
+                country: 'USA'
+              }
+            }
           }
         }
       };
