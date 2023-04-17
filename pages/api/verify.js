@@ -56,7 +56,7 @@ export default async (req, res) => {
           subject: {
             id: vc.issuer.id ?? vc.issuer,
             name: vc.credentialSubject.name,
-            event3: {
+            event: {
               name: 'Internet Identity Workshop IIWXXXVI #36 2023A',
               date: '2023-04-19',
               website: 'https://internetidentityworkshop.com/',
@@ -71,7 +71,7 @@ export default async (req, res) => {
           }
         }
       };
-
+      console.log(JSON.stringify(issueVc));
       issueResponse = await postIssue(issueVc);
     }
     res.status(200).json({
