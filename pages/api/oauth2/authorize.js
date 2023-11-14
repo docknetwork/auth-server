@@ -20,7 +20,7 @@ export default async (req, res) => {
   const response = new OAuth2Server.Response(res);
   const acceptHeader = req.headers && req.headers.accept;
   const expectsHTML = acceptHeader && acceptHeader.indexOf('application/json') === -1;
-  const clientId = req.query.client_id;
+  const clientId = req.query.client_id && req.query.client_id.replace(' ', '+');
   const scope = req.query.scope;
   const clientInfo = decodeClientID(clientId);
 

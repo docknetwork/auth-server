@@ -33,8 +33,9 @@ export function ensureAuthCredential(id, credential) {
     throw new Error('Subject requires state');
   }
 
-  if (!process.env.DISABLE_STATE_CHECK && subject.state !== id) {
-    throw new Error('State mismatch');
+  const subjectState = subject.state.replace(' ', '+');
+  if (!process.env.DISABLE_STATE_CHECK && subjectState !== id) {
+    throw new Error(`State mismatch, subject: ${subjectState} - id: ${id}`);
   }
 }
 
