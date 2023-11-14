@@ -40,7 +40,7 @@ export function createClientSecret(clientId) {
 }
 
 export function isValidClientSecret(clientId, clientSecret) {
-  const clientIDHash = getHash(clientId, CRYPTO_KEY.length);
+  const clientIDHash = getHash(clientId);
   const decryptedSecret = decrypt(clientSecret, clientIDHash);
 
   if (decryptedSecret.length < 16) {
