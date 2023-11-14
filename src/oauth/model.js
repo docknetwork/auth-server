@@ -32,7 +32,8 @@ export default class MemcachedOAuthModel {
     return false;
   }
 
-  async getClient(clientId, clientSecret) {
+  async getClient(clientIdUnformed, clientSecret) {
+    const clientId = decodeURIComponent(clientIdUnformed).replace(' ', '+');
     const clientInfo = decodeClientID(clientId);
 
     if (!clientInfo) {

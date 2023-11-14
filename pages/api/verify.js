@@ -4,10 +4,12 @@ import { verifyCredential } from '../../src/utils/verify-credential';
 export default async (req, res) => {
   // Ensure required parameters exist
   const { vc } = req.body;
-  const { id } = req.query;
+  const id = req.query.id && req.query.id.replace(' ', '+');
   if (req.method !== 'POST' || !vc || !id) {
+    const error = 'Missing or invalid post body';
+    console.error(error);
     res.status(400).json({
-      error: 'Missing or invalid post body',
+      error,
     });
     return;
   }
@@ -15,8 +17,10 @@ export default async (req, res) => {
   // Get the check, error if it doesnt exist
   const vcCheck = await model.getVCCheck(id);
   if (!vcCheck) {
+    const error = `Invalid authorization ID, please go back and try again. (ID: ${id})`;
+    console.error(error);
     res.status(400).json({
-      error: `Invalid authorization ID, please go back and try again. (ID: ${id})`,
+      error,
     });
     return;
   }
@@ -50,6 +54,7 @@ export default async (req, res) => {
       userId,
     });
   } catch (e) {
+    console.error(e);
     res.status(400).json({
       verified: false,
       error: e.message,
