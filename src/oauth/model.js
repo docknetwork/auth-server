@@ -32,15 +32,20 @@ export default class MemcachedOAuthModel {
     return false;
   }
 
-  async getClient(clientIdUnformed, clientSecret) {
+  async getClient(clientIdUnformed, clientSecretUnformed) {
     const clientId = decodeURIComponent(clientIdUnformed).replace(' ', '+');
+    const clientSecret = clientSecretUnformed
+      ? decodeURIComponent(clientSecretUnformed).replace(' ', '+')
+      : null;
     const clientInfo = decodeClientID(clientId);
 
     if (!clientInfo) {
+      console.warn('Cannot find client info for ID:', clientId);
       return false;
     }
 
     if (clientSecret && !isValidClientSecret(clientId, clientSecret)) {
+      console.warn('Invalid client secret provided');
       return false;
     }
 
