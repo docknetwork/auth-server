@@ -13,14 +13,14 @@ module.exports = function fetchUserProfile(accessToken, context, callback) {
       }
 
       if (resp.statusCode !== 200) {
-        return callback(new Error(body));
+        return callback(new Error(`Unable to fetch user profile: non-success status ${resp.statusCode}`));
       }
 
       let bodyParsed;
       try {
         bodyParsed = JSON.parse(body);
       } catch (jsonError) {
-        return callback(new Error(body));
+        return callback(new Error('Unable to parse JSON body'));
       }
 
       const profile = {
