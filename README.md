@@ -72,7 +72,7 @@ yarn start
 
 Running the auth server requires:
 
-- A free [Dock Certs API key](https://certs.dock.io/) in order to verify credentials. Set through API_KEY
+- A free [Truvera API key](https://truvera.io/) in order to verify credentials. Set through API_KEY
 - A memcached instance, you can find many free ones online for a small project or use a local docker container. Set through MEMCACHIER_SERVERS
 - A secure, randomly generated cryptographic key for authorizing clients set through CRYPTO_KEY
 - A public domain set through SERVER_URL (defaults to localhost:3000)
