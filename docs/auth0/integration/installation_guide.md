@@ -57,6 +57,6 @@ You will get back a response similar to the following:
 
 You're ready to [test this Connection](https://auth0.com/docs/authenticate/identity-providers/test-connections).
 
-## Get the Dock Wallet
+## Get the Truvera Wallet
 
-[![Google Play](../media/gplay.svg)](https://play.google.com/store/apps/details?id=com.dockapp) [![App Store](../media/app-store.svg)](https://apps.apple.com/us/app/dock-crypto-wallet/id1565227368)
+[![Google Play](../media/gplay.svg)](https://play.google.com/store/apps/details?id=com.truvera.app) [![App Store](../media/app-store.svg)](https://apps.apple.com/br/app/truvera-wallet/id6739359697)
